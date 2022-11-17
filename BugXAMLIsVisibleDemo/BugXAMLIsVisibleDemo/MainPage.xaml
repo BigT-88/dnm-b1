@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BugXAMLIsVisibleDemo.MainPage">
+    <NavigationPage.TitleView>
+        <Label
+            AutomationId="TitleLabel"
+            AutomationProperties.HelpText="{Binding Title}"
+            AutomationProperties.IsInAccessibleTree="True"
+            AutomationProperties.Name="Title Label"
+            Style="{StaticResource TitleLabel}"
+            Text="{Binding Title}"
+            Margin="10,0,5,0" />
+    </NavigationPage.TitleView>
+    <ContentPage.Content>
+    <AbsoluteLayout AbsoluteLayout.LayoutFlags="All"
+                    VerticalOptions="FillAndExpand"
+                    HorizontalOptions="FillAndExpand">
+        <StackLayout
+            AbsoluteLayout.LayoutFlags="All" 
+            AbsoluteLayout.LayoutBounds="0,0,1,1"
+            BackgroundColor="White">
+            <Button Text="Toggle" Clicked="TogglePage" />
+            <ListView
+                x:Name="FilesList"
+                IsVisible="{Binding ShowList}"
+                Margin="20,0,20,0"
+                RowHeight="35"
+                CachingStrategy="RetainElement"
+                HorizontalOptions="FillAndExpand"
+                ItemsSource="{Binding Documents}"
+                SelectionMode="None"
+                SeparatorVisibility="None"
+                VerticalOptions="FillAndExpand">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid BackgroundColor="#F2F4F8">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="5" />
+                                    <ColumnDefinition Width="5*" />
+                                    <ColumnDefinition Width="2*" />
+                                    <ColumnDefinition Width="5" />
+                                </Grid.ColumnDefinitions>
+                                <HorizontalStackLayout Grid.Column="0" />
+                                <HorizontalStackLayout
+                                    Grid.Column="1"
+                                    Margin="6,0,0,0"
+                                    HorizontalOptions="FillAndExpand"
+                                    VerticalOptions="FillAndExpand">
+                                    <Label
+                                        FontSize="14"
+                                        HorizontalOptions="Start"
+                                        HorizontalTextAlignment="Start"
+                                        LineBreakMode="MiddleTruncation"
+                                        Text="{Binding FileName}"
+                                        VerticalOptions="Center" />
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout
+                                    Grid.Column="2"
+                                    Margin="0,0,6,0"
+                                    HorizontalOptions="End"
+                                    VerticalOptions="Center">
+                                    <Label
+                                        WidthRequest="80"
+                                        HorizontalOptions="End"
+                                        HorizontalTextAlignment="End"
+                                        LineBreakMode="NoWrap"
+                                        Text="{Binding FileSize}" />
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Grid.Column="3" />
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <ScrollView
+                IsVisible="{Binding ShowAltPage}"
+                Margin="15,0,15,0"
+                VerticalOptions="StartAndExpand">
+                <StackLayout>
+                    <Image
+                        Margin="0,0,0,20"
+                        Source="dotnet_bot.png"
+                        HeightRequest="135"
+                        HorizontalOptions="Center" />
+
+                    <Label
+                        Text="Alternate Page Layout!"
+                        FontSize="32"
+                        HorizontalOptions="Center" />
+
+                    <Label
+                        Text="Demo shows IsVisible property failure in ListView and ScrollView.  Each version of this page should use the entire screen and not be limited to the top half (ListView) or the bottom half (this)."
+                        MaxLines="4"
+                        FontSize="15" />
+                </StackLayout>
+            </ScrollView>
+        </StackLayout>
+        <Frame x:Name="MultiActionButtonFullFrame"
+            AbsoluteLayout.LayoutFlags="All"
+            AbsoluteLayout.LayoutBounds="0,0,1,1"
+            BackgroundColor="Transparent"
+            BorderColor="Transparent"
+            CornerRadius="20"
+            VerticalOptions="EndAndExpand"
+            HorizontalOptions="EndAndExpand"
+            Margin="0,2,20,22"
+            Padding="{OnPlatform iOS='2,0,-10,-10', Android='0,6,3,0'}"
+            AnchorX=".5">
+            <Button
+                BackgroundColor="{StaticResource ButtonBlue}"
+                Opacity="1"
+                WidthRequest="170"
+                CornerRadius="{OnPlatform iOS='25', Android='30'}"
+                FontSize="26"
+                TextColor="{StaticResource WhiteBackgroundColor}"
+                Text="Inert"
+                FontAttributes="Bold"
+                Padding="{OnPlatform iOS='15,0,18,0', Android='10,0,20,0'}"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                HeightRequest="55">
+            </Button> 
+        </Frame>
+    </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>
+
